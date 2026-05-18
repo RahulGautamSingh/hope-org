@@ -1,8 +1,9 @@
 // ============================================
-// HOPE FOUNDATION — Main JS
+// HOPE INITIATIVE — Main JS
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+
   // --- Navbar scroll effect ---
   const navbar = document.getElementById('navbar');
   if (navbar) {
@@ -19,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.toggle('open');
       hamburger.classList.toggle('active');
     });
-    // Close on link click
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
@@ -29,69 +29,41 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Scroll fade-in animations ---
-  const fadeEls = document.querySelectorAll('.fade-in');
-  if (fadeEls.length > 0) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    fadeEls.forEach(el => observer.observe(el));
-  }
-
-  // --- Auto-add fade-in to key elements ---
   const autoFadeSelectors = [
-    '.program-card',
-    '.impact-card',
-    '.value-card',
-    '.team-card',
-    '.event-card',
-    '.program-detail-card',
-    '.gallery-item',
-    '.mission-text',
-    '.mission-image',
-    '.about-text',
-    '.about-img',
-    '.testimonial-card',
-    '.contact-info',
-    '.contact-form'
+    '.program-card', '.impact-card', '.value-card', '.team-card',
+    '.event-card', '.program-detail-card', '.gallery-item',
+    '.mission-text', '.mission-image', '.about-text', '.about-img',
+    '.testimonial-card', '.contact-info', '.contact-form'
   ];
   autoFadeSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach((el, i) => {
       el.classList.add('fade-in');
-      el.style.transitionDelay = `${i * 0.1}s`;
+      el.style.transitionDelay = `${i * 0.08}s`;
     });
   });
-  // Re-observe newly added fade-in elements
-  document.querySelectorAll('.fade-in').forEach(el => {
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    obs.observe(el);
-  });
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
 
-  // --- Counter animation for impact numbers ---
+  // --- Counter animation ---
   const counters = document.querySelectorAll('.impact-number');
   if (counters.length > 0) {
-    const counterObserver = new IntersectionObserver((entries) => {
+    const counterObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           animateCounter(entry.target);
-          counterObserver.unobserve(entry.target);
+          counterObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.5 });
-    counters.forEach(c => counterObserver.observe(c));
+    counters.forEach(c => counterObs.observe(c));
   }
-
   function animateCounter(el) {
     const text = el.textContent.trim();
     const match = text.match(/([\d,.]+)/);
@@ -103,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const hasComma = match[1].includes(',');
     const duration = 1500;
     const start = performance.now();
-
     function update(now) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
@@ -116,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(update);
   }
 
-  // --- Smooth scroll for anchor links ---
+  // --- Smooth scroll ---
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
       const target = document.querySelector(anchor.getAttribute('href'));
@@ -127,30 +98,124 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Gallery lightbox (simple) ---
-  const galleryItems = document.querySelectorAll('.gallery-item img');
-  if (galleryItems.length > 0) {
-    galleryItems.forEach(img => {
-      img.addEventListener('click', () => {
-        const overlay = document.createElement('div');
-        overlay.style.cssText = `
-          position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:9999;
-          display:flex;align-items:center;justify-content:center;cursor:pointer;
-          animation:fadeInLightbox 0.3s ease;
-        `;
-        const bigImg = document.createElement('img');
-        bigImg.src = img.src;
-        bigImg.style.cssText = `
-          max-width:90vw;max-height:90vh;border-radius:16px;
-          box-shadow:0 20px 60px rgba(0,0,0,0.4);
-        `;
-        overlay.appendChild(bigImg);
-        overlay.addEventListener('click', () => {
-          overlay.style.opacity = '0';
-          setTimeout(() => overlay.remove(), 300);
+  // --- Gallery lightbox ---
+  document.querySelectorAll('.gallery-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = `
+        position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;
+        display:flex;align-items:center;justify-content:center;cursor:pointer;
+        padding:20px;
+      `;
+      const bigImg = document.createElement('img');
+      bigImg.src = img.src;
+      bigImg.style.cssText = `
+        max-width:90vw;max-height:90vh;border-radius:16px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.5);
+        object-fit:contain;
+      `;
+      overlay.appendChild(bigImg);
+      overlay.addEventListener('click', () => overlay.remove());
+      document.body.appendChild(overlay);
+    });
+  });
+
+  // ============================================================
+  // DONATE AMOUNT SELECTION (contact.html)
+  // ============================================================
+  const donateTiles = document.querySelectorAll('.donate-tile');
+  const donateBtn = document.getElementById('donateNowBtn');
+  let selectedAmount = null;
+  let selectedLabel = null;
+
+  if (donateTiles.length > 0) {
+    donateTiles.forEach(tile => {
+      tile.addEventListener('click', () => {
+        // Deselect all
+        donateTiles.forEach(t => {
+          t.style.background = 'rgba(255,255,255,0.12)';
+          t.style.border = '1px solid rgba(255,255,255,0.2)';
+          t.style.transform = '';
         });
-        document.body.appendChild(overlay);
+        // Select clicked
+        tile.style.background = 'rgba(255,255,255,0.30)';
+        tile.style.border = '2px solid rgba(255,255,255,0.7)';
+        tile.style.transform = 'scale(1.04)';
+        selectedAmount = tile.dataset.amount;
+        selectedLabel = tile.dataset.label;
+
+        // Update button text
+        if (donateBtn) {
+          donateBtn.textContent = `Donate ${selectedAmount} →`;
+        }
       });
     });
   }
+
+  if (donateBtn) {
+    donateBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const amount = selectedAmount || '(amount not selected)';
+      const label  = selectedLabel  || '';
+      const subject = encodeURIComponent(`Donation Enquiry – ${amount}${label ? ' ' + label : ''}`);
+      const body = encodeURIComponent(
+        `Hello HOPE Team,\n\n` +
+        `I would like to make a donation of ${amount}${label ? ' (' + label + ')' : ''} to support your programs.\n\n` +
+        `Please send me the bank transfer details or payment instructions at your convenience.\n\n` +
+        `I am keen to support the following program (if applicable):\n` +
+        `[ ] Health Adda\n` +
+        `[ ] B-RODH / Centre of Excellence\n` +
+        `[ ] Tobacco Control\n` +
+        `[ ] Hepatitis C Initiative\n` +
+        `[ ] Where most needed\n\n` +
+        `Thank you for the wonderful work HOPE does for communities across India.\n\n` +
+        `Warm regards,\n` +
+        `[Your Name]`
+      );
+      window.location.href = `mailto:hopeinitiative@gmail.com?subject=${subject}&body=${body}`;
+    });
+  }
+
+  // ============================================================
+  // CONTACT FORM — open mailto instead of alert
+  // ============================================================
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name    = contactForm.querySelector('[name="name"]')?.value.trim()    || '';
+      const email   = contactForm.querySelector('[name="email"]')?.value.trim()   || '';
+      const phone   = contactForm.querySelector('[name="phone"]')?.value.trim()   || '';
+      const subject = contactForm.querySelector('[name="subject"]')?.value        || 'General Enquiry';
+      const message = contactForm.querySelector('[name="message"]')?.value.trim() || '';
+
+      const subjectMap = {
+        donate:    'Donation Enquiry',
+        volunteer: 'Volunteer Application',
+        partner:   'Corporate Partnership',
+        health:    'Health Adda / Camp Query',
+        media:     'Media / Press Enquiry',
+        general:   'General Enquiry'
+      };
+      const subjectLabel = subjectMap[subject] || subject || 'Enquiry';
+
+      const mailSubject = encodeURIComponent(`[Website] ${subjectLabel} – from ${name}`);
+      const mailBody = encodeURIComponent(
+        `Hello HOPE Team,\n\n` +
+        `You have a new message via the website contact form:\n\n` +
+        `──────────────────────────────\n` +
+        `Name:     ${name}\n` +
+        `Email:    ${email}\n` +
+        (phone ? `Phone:    ${phone}\n` : '') +
+        `Subject:  ${subjectLabel}\n` +
+        `──────────────────────────────\n\n` +
+        `${message}\n\n` +
+        `──────────────────────────────\n` +
+        `(Sent from the HOPE Initiative website)`
+      );
+      window.location.href = `mailto:hopeinitiative@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+      contactForm.reset();
+    });
+  }
+
 });

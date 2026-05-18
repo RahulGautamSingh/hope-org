@@ -82,7 +82,7 @@
         <!-- Right: Form -->
         <div class="contact-form">
           <h3 style="font-family:var(--font-display); font-size:1.4rem; margin-bottom:24px;">Send Us a Message</h3>
-          <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Thank you! We\'ll get back to you soon.'); this.reset();">
+          <form id="contactForm" action="#" method="POST">
             <div class="form-row">
               <div class="form-group">
                 <label for="name">Full Name</label>
@@ -133,23 +133,23 @@
       <h2>Make a <span class="highlight">Donation</span></h2>
       <p>Every contribution, big or small, goes directly towards our health and community programs across India. Reach out to us at hopeinitiative@gmail.com for bank transfer details or to discuss how your donation will be used.</p>
       <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:20px; max-width:500px; margin:32px auto;">
-        <div style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:var(--transition);"
-             onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <div class="donate-tile" data-amount="₹500" data-label="One-time"
+             style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:all 0.25s ease; user-select:none;">
           <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--yellow);">₹500</div>
           <div style="font-size:0.8rem; opacity:0.8; margin-top:4px;">One-time</div>
         </div>
-        <div style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:var(--transition);"
-             onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <div class="donate-tile" data-amount="₹2,000" data-label="Monthly"
+             style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:all 0.25s ease; user-select:none;">
           <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--yellow);">₹2,000</div>
           <div style="font-size:0.8rem; opacity:0.8; margin-top:4px;">Monthly</div>
         </div>
-        <div style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:var(--transition);"
-             onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
+        <div class="donate-tile" data-amount="₹5,000" data-label="Sponsor"
+             style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:all 0.25s ease; user-select:none;">
           <div style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--yellow);">₹5,000</div>
           <div style="font-size:0.8rem; opacity:0.8; margin-top:4px;">Sponsor</div>
         </div>
       </div>
-      <a href="mailto:hopeinitiative@gmail.com?subject=Donation Enquiry" class="btn btn-accent btn-lg">Donate Now</a>
+      <button id="donateNowBtn" class="btn btn-accent btn-lg">Donate Now</button>
       <p style="font-size:0.85rem; opacity:0.7; margin-top:16px;">Email hopeinitiative@gmail.com with the subject "Donation Enquiry" to get started.</p>
     </div>
   </section>
