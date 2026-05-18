@@ -1,6 +1,6 @@
 /* ============================================
-   HOPE FOUNDATION — Watumull-inspired Design
-   Playful blue, warm accents, wavy shapes
+   HOPE — Health, Opportunity, Progress & Empowerment
+   Watumull-inspired Design — Navi Mumbai
    ============================================ */
 
 /* --- VARIABLES --- */
@@ -183,6 +183,16 @@ ul { list-style: none; }
   font-size: 1.4rem;
   filter: none;
   color: var(--red-soft);
+}
+.logo-img {
+  height: 48px;
+  width: auto;
+  border-radius: 0;
+  object-fit: contain;
+}
+.logo-img-footer {
+  filter: brightness(0) invert(1);
+  height: 40px;
 }
 .logo-text { color: var(--blue-dark); }
 .logo-dot { color: var(--orange); }
