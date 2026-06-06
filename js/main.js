@@ -121,6 +121,27 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
+  // GALLERY FILTER (gallery.html) — controls photos + videos
+  // ============================================================
+  const filterBar = document.getElementById('filterBar');
+  if (filterBar) {
+    const buttons = filterBar.querySelectorAll('.filter-btn');
+    const applyFilter = (cat) => {
+      document.querySelectorAll('.gallery-item, .video-card').forEach(el => {
+        const show = cat === 'all' || el.dataset.cat === cat;
+        el.classList.toggle('hidden', !show);
+      });
+    };
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(btn.dataset.filter);
+      });
+    });
+  }
+
+  // ============================================================
   // DONATE AMOUNT SELECTION (contact.html)
   // ============================================================
   const donateTiles = document.querySelectorAll('.donate-tile');

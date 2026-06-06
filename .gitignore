@@ -1,0 +1,14 @@
+# Source media drop — 2GB of raw photos/videos, NOT for deploy.
+# Photos are optimized into images/gallery/; videos are embedded from Google Drive.
+For HOPE Initiative Website 2/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Node (in case tooling is added later)
+node_modules/
+.vercel
