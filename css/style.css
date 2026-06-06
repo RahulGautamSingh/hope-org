@@ -1369,3 +1369,39 @@ blockquote {
   .topic-title { font-size: 1.35rem; }
   .sessions-intro { margin-top: 48px; }
 }
+
+/* =====================
+   FOOTER SOCIAL ICONS
+   ===================== */
+.social-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 22px;
+}
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.85);
+  transition: var(--transition);
+}
+.social-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+.social-icon:hover {
+  background: var(--orange);
+  color: #fff;
+  transform: translateY(-3px);
+}
+.social-icon.soon { opacity: 0.5; }
+.social-icon.soon:hover {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  transform: none;
+}
