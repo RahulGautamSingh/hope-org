@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --- Gallery lightbox ---
-  document.querySelectorAll('.gallery-item img').forEach(img => {
+  document.querySelectorAll('.gallery-item img, .media-photo img').forEach(img => {
     img.addEventListener('click', () => {
       const overlay = document.createElement('div');
       overlay.style.cssText = `
